@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,12 +29,13 @@ public class Topic {
 	private List<Domanda> domande;
 	
 	public Topic() {
-		
+		this.domande=new ArrayList<>();
 	}
 
 	public Topic(String titolo, String descrizione) {
 		this.titolo = titolo;
 		this.descrizione = descrizione;
+		this.domande=new ArrayList<>();
 	}
 	
 	
