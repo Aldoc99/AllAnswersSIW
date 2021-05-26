@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -42,7 +43,9 @@ public class Utente {
 	private List<Domanda> domande;
 	
 	public Utente() {
-		
+		this.voti=new ArrayList<>();
+		this.risposte=new ArrayList<>();
+		this.domande=new ArrayList<>();	
 	}
 
 	public Utente(String nome, String cognome, String email, String password, String username) {
@@ -51,6 +54,9 @@ public class Utente {
 		this.email = email;
 		this.password = password;
 		this.username = username;
+		this.voti=new ArrayList<>();
+		this.risposte=new ArrayList<>();
+		this.domande=new ArrayList<>();
 	}
 	
 }
