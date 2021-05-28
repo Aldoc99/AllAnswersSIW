@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: headerfiles(title=#{header.domande})"> </head>
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+	<div>
+    	<h4 th:text="#{header.domande}">List of persons</h4>
+		<ul>
+			<li th:each="domanda : ${domande}">
+				<a href="domanda.html" 
+				   th:href="@{'/domanda' + '/' + ${domanda.id}}" 
+				   th:text="|${domanda.nome} ${domanda.risposte}|">///////</a>
+			</li>
+		</ul>
+	</div>
+	<footer th:replace="fragments/base.html :: fondo"></footer>
+</body>
+</html>
