@@ -3,6 +3,8 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,21 +26,22 @@ public class Utente {
 	
 	private String cognome;
 	
+	@Column(unique = true)
 	private String email;
 	
 	private String password;
 	
 	private String username;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name= "utente_id")
 	private List<Voto> voti;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name= "utente_id")
 	private List<Risposta> risposte;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name= "utente_id")
 	private List<Domanda> domande;
 	

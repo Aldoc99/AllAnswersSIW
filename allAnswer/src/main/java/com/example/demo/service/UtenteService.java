@@ -29,7 +29,5 @@ public class UtenteService {
 	@Transactional
 	public List<Utente> tutti(){
 		return (List<Utente>) utenteRepository.findAll();
-	}
-	
-	
+	}	
 }
