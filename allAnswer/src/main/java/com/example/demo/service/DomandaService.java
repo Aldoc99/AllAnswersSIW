@@ -31,4 +31,9 @@ public class DomandaService {
 		return (List<Domanda>) domandaRepository.findAll();
 	}
 	
+	@Transactional
+	public List<Domanda> getRandomDomande(){
+		return domandaRepository.getRandomDomanda();
+	}
+	
 }

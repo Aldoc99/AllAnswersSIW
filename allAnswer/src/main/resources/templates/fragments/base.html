@@ -1,20 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="headerfiles">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
 </head>
 <body>
 	<header th:fragment="intestazione">
-		<h1>Siw - Spring Very Simple Demo</h1>
+	<div class="topnav">
+    <a class="active" href="/home">Home</a>
+    <a href="/creaDomanda">New Question</a>
+    <a href="/domanda">My Question</a>
+    <a href="/risposte">My answers</a>
+    <a href="/topic">Explore</a>
+  </div>  
+  	<h1>All Answers</h1>
 	</header>
 
-	<p>Go to the next page to see fragments in action</p>
-	<aside>
-		<div>This is a sidebar</div>
-	</aside>
-	<div class="another">This is another sidebar</div>
-	
 </body>
 </html>

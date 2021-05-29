@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
   <title>AllAnswers</title>
 </head>
 <body>
-Home
+
+<header th:replace="fragments/base.html :: intestazione"> </header>
+  
+  
+  	
+    
+    <section>
+      <!-- main paragraph --> 
+      <p id="sottotitolo">Best questions of the week</p>
+      <!-- Two column-type things --> 
+      <div id="container">
+        
+        <div th:each="domanda:${domande}">
+  	<div>
+  		<p th:text="${domanda.titolo}">Titolo </p>
+  		
+  		<p th:if="${#strings.length(domanda.testo)>99}" th:text="${#strings.substring(domanda.testo,0,99)} ">Testo della domanda </p>
+  		<p th:unless="${#strings.length(domanda.testo)>99}" th:text="${domanda.testo} ">Testo della domanda </p>
+  	</div>
+  	</div>
+  	
+      </div>
+
+    </section>
+    <footer></footer>
+    
+    
+  
 </body>
 </html>
+    
