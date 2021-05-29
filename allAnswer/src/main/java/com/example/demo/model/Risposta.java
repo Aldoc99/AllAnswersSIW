@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,11 @@ public class Risposta {
 	
 	private String testo;
 	
-	@OneToMany
+	private int votiPositivi;
+	
+	private int votiNegativi;
+	
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name= "risposta_id")
 	private List<Voto> voti;
 	
@@ -31,13 +36,24 @@ public class Risposta {
 	private Domanda domanda;
 	
 	public Risposta() {
+		this.votiPositivi=0;
+		this.votiNegativi=0;
 		this.voti=new ArrayList<>();
 	}
 
 	public Risposta(String testo) {
 		this.testo = testo;
+		this.votiPositivi=0;
+		this.votiNegativi=0;
 		this.voti=new ArrayList<>();
 	}
 	
-	
+	public void aggiungiVoto(Voto v) {
+		if(v.isUtile())
+			this.votiPositivi++;
+		else
+			this.votiNegativi++;
+		
+		this.voti.add(v);
+	}
 }
