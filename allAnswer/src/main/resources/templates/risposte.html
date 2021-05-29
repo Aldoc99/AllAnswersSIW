@@ -2,17 +2,25 @@
 <html
 	xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
 	<link rel="stylesheet" type="text/css" href="/css/risposteStyle.css">
   <head th:replace="fragments/base.html :: headerfiles"> </head>
   <title>AllAnswers</title>
 </head>
 <body>
 
-<h1>My Answers</h1>
-
+<header th:replace="fragments/base.html :: intestazione"> </header>
+  
+    <section>
+      <!-- main paragraph --> 
+      <p id="sottotitolo">My answers</p>
+      <!-- Two column-type things --> 
+      <div id="container">
+        
+        
 <div th:each="risposta:${risposte}">
 	<div class="risposta">
-		<a th:href="@{'/apriDomanda/'+${risposta.domanda.id}}">  
+		<a th:href="@{'/domanda/'+${risposta.domanda.id}}">  
 			<h3 th:text="${risposta.testo}"> Testo risposta</h3>
 			
 			<div class="utile">
@@ -33,5 +41,11 @@
 		</a>
 	</div>
 </div>
+  	
+      </div>
+
+    </section>
+    <footer></footer>
+
 </body>
 </html>

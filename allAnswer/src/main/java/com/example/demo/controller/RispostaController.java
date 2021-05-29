@@ -49,6 +49,7 @@ public class RispostaController {
 	}
 	@GetMapping("/risposte")
 	public String getRisposte(Model model) {
+		
 		List<Risposta> risposte=rispostaService.tutti();
 		
 		
