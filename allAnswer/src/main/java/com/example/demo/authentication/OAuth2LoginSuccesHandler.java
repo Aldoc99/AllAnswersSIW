@@ -19,7 +19,7 @@ public class OAuth2LoginSuccesHandler extends SimpleUrlAuthenticationSuccessHand
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		CustomOAuth2User oAuth2User=(CustomOAuth2User) authentication.getPrincipal();
-		
+		this.setDefaultTargetUrl("/home");
 		System.out.println(oAuth2User.getEmail());
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
