@@ -51,6 +51,10 @@ public class Utente {
 		this.domande=new ArrayList<>();	
 	}
 
+	public Utente(String nome,String email) {
+		this.nome=nome;
+		this.email=email;
+	}
 	public Utente(String nome, String cognome, String email, String password, String username) {
 		this.nome = nome;
 		this.cognome = cognome;
