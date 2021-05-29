@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,11 +21,12 @@ public class DomandaController {
     		return "domande.html";
     }
     
- /*   @RequestMapping(value = "/risposta", method = RequestMethod.GET)
-    public String getRisposte(Model model) {
-    		model.addAttribute("risposte", this.domandaService.tutti());
-    		return "risposte.html";
-    }*/
+
+    @RequestMapping(value = "/domanda/{id}", method = RequestMethod.GET)
+    public String apriDomanda(@PathVariable("id") Long id, Model model) {
+    	model.addAttribute("domanda",this.domandaService.getById(id));
+    	return "domanda.html";
+    }
     
     
 	
