@@ -6,5 +6,5 @@ import com.example.demo.model.Utente;
 
 public interface UtenteRepository extends CrudRepository<Utente, Long>{
 
-	
+	public Utente findByEmail(String email);
 }
