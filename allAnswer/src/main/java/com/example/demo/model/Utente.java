@@ -22,14 +22,8 @@ public class Utente {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	private String nome;
-	
-	private String cognome;
-	
 	@Column(unique = true)
 	private String email;
-	
-	private String password;
 	
 	private String username;
 	
@@ -51,19 +45,13 @@ public class Utente {
 		this.domande=new ArrayList<>();	
 	}
 
-	public Utente(String nome,String email) {
-		this.nome=nome;
+	public Utente(String username,String email) {
+		this.username=username;
 		this.email=email;
-	}
-	public Utente(String nome, String cognome, String email, String password, String username) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.email = email;
-		this.password = password;
-		this.username = username;
 		this.voti=new ArrayList<>();
 		this.risposte=new ArrayList<>();
 		this.domande=new ArrayList<>();
 	}
+	
 	
 }
