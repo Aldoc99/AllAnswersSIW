@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class Domanda {
 	
 	@Column(length=1000)
 	private String testo;
+	
+	private LocalDate data;
 	
 	@OneToMany(mappedBy="domanda")
 	private List<Risposta> risposte;

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.model.Topic;
 import com.example.demo.model.Utente;
 
 @Component
@@ -11,6 +12,8 @@ import com.example.demo.model.Utente;
 public class SessionData {
 
 	private Utente utente;
+	
+	private Topic topic;
 
 	public Utente getUtente() {
 		return utente;
@@ -18,6 +21,14 @@ public class SessionData {
 
 	public void setUtente(Utente utente) {
 		this.utente = utente;
+	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 	
 }

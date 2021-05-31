@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
+  <title>AllAnswers</title>
+</head>
+<body>
+
+<header th:replace="fragments/base.html :: intestazione"> </header>
+  
+  
+  	
+    
+    <section>
+      <!-- main paragraph --> 
+      <p id="sottotitolo">Choose a topic</p>
+      <!-- Two column-type things --> 
+      <div id="container">        
+        <ul>
+          <li th:each="topic : ${topics}">
+            <a href="domandaForm.html" 
+                 th:href="@{'addQuestion' + '/' + ${topic.id}}" 
+                 th:text="|${topic.titolo}|">Nome topic</a>
+          </li>
+        </ul>	
+      </div>
+
+    </section>
+    <footer></footer>
+    
+    
+  
+</body>
+</html>
