@@ -17,15 +17,13 @@ public class DomandaController {
 	
     @RequestMapping(value = "/domanda", method = RequestMethod.GET)
     public String getDomande(Model model) {
-    	
-    		model.addAttribute("domande", this.domandaService.tutti());
+    	   model.addAttribute("domande", this.domandaService.tutti());
     		return "domande.html";
     }
     
     @RequestMapping(value = "/domanda/{id}", method = RequestMethod.GET)
     public String apriDomanda(@PathVariable("id") Long id,Model model) {
-
-    	//model.addAttribute("risposte", domanda.getRisposte());
+            model.addAttribute("domanda",this.domandaService.getById(id));
     		return "domanda.html";
     }
     

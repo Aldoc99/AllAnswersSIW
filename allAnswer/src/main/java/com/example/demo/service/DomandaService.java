@@ -36,4 +36,5 @@ public class DomandaService {
 		return domandaRepository.getRandomDomanda();
 	}
 	
+	
 }
