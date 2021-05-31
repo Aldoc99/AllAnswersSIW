@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class Risposta {
 	
 	private int votiNegativi;
 	
+	private LocalDate data;
+	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name= "risposta_id")
 	private List<Voto> voti;
@@ -41,12 +44,14 @@ public class Risposta {
 		this.votiPositivi=0;
 		this.votiNegativi=0;
 		this.voti=new ArrayList<>();
+		this.data=LocalDate.now();
 	}
 
 	public Risposta(String testo) {
 		this.testo = testo;
 		this.votiPositivi=0;
 		this.votiNegativi=0;
+		this.data=LocalDate.now();
 		this.voti=new ArrayList<>();
 	}
 	

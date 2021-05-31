@@ -9,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.model.Risposta;
+import com.example.demo.model.Utente;
 import com.example.demo.model.Voto;
 import com.example.demo.service.RispostaService;
-import com.example.demo.service.VotoService;
+import com.example.demo.service.UtenteService;
+import com.example.demo.session.SessionData;
 
 @Controller
 public class RispostaController {
@@ -19,9 +21,12 @@ public class RispostaController {
 	@Autowired
 	private RispostaService rispostaService;
 	
-	@Autowired
-	private VotoService votoService;
 	
+	@Autowired
+	private UtenteService utenteService;
+	
+	@Autowired
+	SessionData sessionData;
 	
 	@GetMapping("/init")
 	public String init(Model model) {
@@ -49,8 +54,10 @@ public class RispostaController {
 	}
 	@GetMapping("/risposte")
 	public String getRisposte(Model model) {
-		
-		List<Risposta> risposte=rispostaService.tutti();
+		Utente utente=sessionData.getUtente();
+		utente=utenteService.getByEmail(utente.getEmail());
+		List<Risposta> risposte=utente.getRisposte();
+
 		
 		
 		model.addAttribute("risposte", risposte);
