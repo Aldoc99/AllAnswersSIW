@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Domanda;
 import com.example.demo.model.Topic;
 import com.example.demo.repository.TopicRepository;
 
@@ -30,5 +31,6 @@ public class TopicService {
 	public List<Topic> tutti(){
 		return (List<Topic>) topicRepository.findAll();
 	}
+
 	
 }

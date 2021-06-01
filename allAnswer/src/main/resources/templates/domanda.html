@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="fragments/base.html :: headerfiles(title=#{pageTitle.domanda})"> </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
+  <title>AllAnswers</title>
+</head>
 <body>
 	<header th:replace="fragments/base.html :: intestazione"></header>
     <div>
     	<h4 th:text="#{header.domanda}">...</h4>
     	
     	<div th:if="${domanda}" th:object="${domanda}">
-			<span th:text="*{nome}">qui-va-nome</span>
-			<span th:text="*{risposte}">qui-va-cognome</span>
+			<span th:text="*{nome}">Nome</span>
+			   <div th:each="risposta:${risposte}">
+  	<div>
+  		<span th:text="${risposta.testo}">Testo </span>
    		</div>
     	<div th:unless="${domanda}">Non esiste</div>
     </div>
