@@ -15,7 +15,6 @@ import com.example.demo.model.Utente;
 import com.example.demo.service.DomandaService;
 import com.example.demo.service.UtenteService;
 import com.example.demo.session.SessionData;
-import com.example.demo.session.sessionData;
 
 @Controller
 public class DomandaController {
