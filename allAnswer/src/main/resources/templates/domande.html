@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/base.html :: headerfiles(title=#{header.domande})"> </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
+  <title>AllAnswers</title>
+</head>
+<body>
 <body>
 	<header th:replace="fragments/base.html :: intestazione"></header>
 	<div>
@@ -13,6 +19,6 @@
 			</li>
 		</ul>
 	</div>
-	<footer th:replace="fragments/base.html :: fondo"></footer>
+    <footer></footer>
 </body>
 </html>

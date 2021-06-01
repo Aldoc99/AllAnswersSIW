@@ -21,7 +21,7 @@
         <ul>
           <li th:each="topic : ${topics}">
             <a href="domandaForm.html" 
-                 th:href="@{'addQuestion' + '/' + ${topic.id}}" 
+                 th:href="@{${topic.id} + '/' + 'addQuestion's}" 
                  th:text="|${topic.titolo}|">Nome topic</a>
           </li>
         </ul>	
