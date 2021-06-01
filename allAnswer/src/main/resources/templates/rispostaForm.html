@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <head th:replace="fragments/base.html :: headerfiles">
+  <link rel="stylesheet" type="text/css" href="/css/risposteStyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/formStyle.css">
+  <title>AllAnswers</title>
+</head>
+<body>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+    <div>
+    	
+    	<section>
+      <!-- main paragraph --> 
+      <p id="sottotitolo" th:text="#{header.risposta}">My answers</p>
+      <!-- Two column-type things --> 
+      <div id="container">
+    	
+    	<form th:action="@{'/'+${domanda.id}+'/addRisposta'}" method="POST" th:object="${risposta}">
+    	<span th:text="#{testo}">Text:</span>
+              <br>
+              <span><textarea id="testoForm" th:field="*{testo}" rows="10" cols="80"></textarea></span>
+              <span id="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+              <br th:if="${#fields.hasErrors('testo')}">
+      <span><button type="submit">Invio</button></span>
+    	</form>
+    	</div>
+    </section>
+    
+   	
+</body>
+</html>

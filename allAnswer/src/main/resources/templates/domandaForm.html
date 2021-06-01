@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<head th:replace="fragments/base.html :: headerfiles"> </head>
+<link rel="stylesheet" type="text/css" href="/css/formStyle.css">
+  <title>AllAnswers</title>
+</head>
+<body>
+
+<header th:replace="fragments/base.html :: intestazione"> </header>
+  
+  
+  	
+    
+    <section>
+      <!-- main paragraph --> 
+      <p id="sottotitolo" th:text="#{header.domandaForm}">Create new question</p>
+      <!-- Two column-type things --> 
+      <div id="container">
+        
+
+        <div th:if="${topic}" th:object="${topic}">
+         <div id="descrizione">
+          <h4 th:text="#{topic}">Topic:</h4>
+          <span th:text="*{titolo}">nome</span>
+         
+      	<h4 th:text="#{descrizione}">Descrizione:</h4>
+      	<p th:text="${topic.descrizione}">descrizione</p>
+       </div>
+        </div>
+        <div th:unless="${topic}">Non esiste</div>
+
+        <form th:action="@{'/'+${topic.id}+'/addQuestion'}" method="POST" th:object="${domanda}">
+          <div th:if="${#fields.hasGlobalErrors()}">
+              <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+          </div>    
+          <div>
+            <div>
+              <span th:text="#{titolo}">Title:</span>
+              <span><input type="text" th:field="*{titolo}" /></span>
+              <span id="errore" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+            </div>    
+            <div>
+              <span th:text="#{testo}">Text:</span>
+              <br>
+              <span><textarea type="text" th:field="*{testo}" rows="10" cols="80"></textarea></span>
+              <span id="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+            </div>
+            <div>
+              <span><button type="submit">Invio</button></span>
+            </div>
+          </div>
+        </form>
+      
+  	
+      </div>
+
+    </section>
+    <footer></footer>
+    
+    
+  
+</body>
+</html>
