@@ -22,7 +22,7 @@
 	<div class="risposta">
 		<a th:href="@{'/domanda/'+${risposta.domanda.id}}">  
 			<h3 th:text="${risposta.testo}"> Testo risposta</h3>
-			
+			<p th:text="${risposta.data}"> Data della risposta</p>
 			<div class="utile">
 			<p th:text="${risposta.votiPositivi}">Numero likes </p>
 			

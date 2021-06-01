@@ -48,7 +48,11 @@ public class RispostaController {
 		
 		risposta.setVotiNegativi(1);
 		
-		rispostaService.inserisci(risposta);
+		Utente utente=sessionData.getUtente();
+		utente=utenteService.getByEmail(utente.getEmail());
+		List<Risposta> risposte=utente.getRisposte();
+		risposte.add(risposta);
+		utenteService.inserisci(utente);
 		
 		return "index";
 	}
