@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.model.Domanda;
-import com.example.demo.model.Risposta;
 import com.example.demo.model.Topic;
 import com.example.demo.model.Utente;
 import com.example.demo.service.DomandaService;
@@ -70,53 +69,37 @@ public class DomandaController {
 	public String addQuestion(@PathVariable("idT") Long id,Model model) {
 //    	logger.debug("addPersona");
 		Topic topicCorrente=this.topicService.getById(id);
-		sessionData.setTopic(topicCorrente);
 		model.addAttribute("topic", topicCorrente);
     	model.addAttribute("domanda", new Domanda());
         return "domandaForm";
     }
 	
 	@PostMapping("/{idT}/addQuestion")
-	public String newQuestion(@ModelAttribute("domanda") Domanda domanda, 
+	public String newQuestion(@PathVariable("idT") Long id,@ModelAttribute("domanda") Domanda domanda, 
 			Model model, BindingResult bindingResult) {
-		
+		Topic topic=topicService.getById(id);
 		this.domandaValidator.validate(domanda, bindingResult);
         if (!bindingResult.hasErrors()) {
         	domanda.setData(LocalDate.now());
         	
-        	sessionData.getUtente().getDomande().add(domanda);
+        	Utente utente=utenteService.getById(sessionData.getUtente().getId());
+        	utente.getDomande().add(domanda);
         	this.utenteService.inserisci(sessionData.getUtente());
         	
-        	sessionData.getTopic().getDomande().add(domanda);
-        	this.topicService.inserisci(sessionData.getTopic());
         	
-        	model.addAttribute("domande", this.domandaService.tutti());
-            
+        	topic.getDomande().add(domanda);
+        	topicService.inserisci(topic);
+       
         	return "domanda";
         }
-		
+        
+        
+        
+        model.addAttribute("topic", topic);
+        
 		return "domandaForm";
 	}
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- /*   @RequestMapping(value = "/risposta", method = RequestMethod.GET)
-    public String getRisposte(Model model) {
-    		model.addAttribute("risposte", this.domandaService.tutti());
-    		return "risposte.html";
-    }*/
     
     
 	

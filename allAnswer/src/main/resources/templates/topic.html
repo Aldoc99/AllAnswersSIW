@@ -10,7 +10,11 @@
 	<div>
 	 <section>
       <!-- main paragraph --> 
-      <p id="sottotitolo" th:text="#{header.domande}">My questions</p>
+      <p id="sottotitolo" th:text="#{header.topic}+' '+${topic.titolo}"></p>
+      <div id="descrizione">
+      <h4 th:text="#{descrizione}">Descrizione:</h4>
+      <p th:text="${topic.descrizione}">descrizione</p>
+       </div>
       <!-- Two column-type things --> 
       <div id="container">
 		<ul>

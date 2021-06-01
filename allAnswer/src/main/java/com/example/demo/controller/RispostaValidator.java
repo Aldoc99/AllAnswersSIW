@@ -7,17 +7,15 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.example.demo.model.Domanda;
+import com.example.demo.model.Risposta;
 
 @Component
-public class DomandaValidator implements Validator {
+public class RispostaValidator implements Validator{
 
-    private static final Logger logger = LoggerFactory.getLogger(DomandaValidator.class);
-	
-	
+	private static final Logger logger = LoggerFactory.getLogger(RispostaValidator.class);
+
 	@Override
 	public void validate(Object o, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "titolo", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "testo", "required");
 
 		if (!errors.hasErrors()) {
@@ -27,6 +25,6 @@ public class DomandaValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> aClass) {
-		return Domanda.class.equals(aClass);
+		return Risposta.class.equals(aClass);
 	}
 }

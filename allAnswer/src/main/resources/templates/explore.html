@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<head th:replace="fragments/base.html :: headerfiles">
+  <head th:replace="fragments/base.html :: headerfiles">
   <title>AllAnswers</title>
 </head>
 <body>
@@ -19,8 +19,8 @@
         <ul>
           <li th:each="topic : ${topics}">
             <a href="domandaForm.html" 
-                 th:href="@{'/'+${topic.id} + '/' + 'addQuestion'}" 
-                 th:text="|${topic.titolo}|">Nome topic</a>
+                 th:href="@{'/topic/'+${topic.id}}" 
+                 th:text="|${topic.titolo}|" class="topic">Nome topic</a>
           </li>
         </ul>	
       </div>

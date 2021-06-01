@@ -1,0 +1,16 @@
+input{
+	padding:10px;
+	margin:10px;
+}
+
+textarea{
+	margin:10px;
+	font-size:20px;
+}
+button{
+	margin:10px;
+}
+
+#errore{
+	color:red;
+}

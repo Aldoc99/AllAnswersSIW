@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/indexStyle.css">
-  <title>AllAnswers</title>
+<head th:replace="fragments/base.html :: headerfiles">
+<title>AllAnswers</title>
 </head>
 <body>
 
-<header th:replace="fragments/base.html :: intestazione"> </header>
-  
-  
-  	
-    
-    <section>
-      <!-- main paragraph --> 
-      <p id="sottotitolo">Best questions of the week</p>
-      <!-- Two column-type things --> 
-      <div id="container">
-        
-        <div th:each="domanda:${domande}">
-  	<div>
-  		<p th:text="${domanda.titolo}">Titolo </p>
-  		
-  		<p th:if="${#strings.length(domanda.testo)>99}" th:text="${#strings.substring(domanda.testo,0,99)} ">Testo della domanda </p>
-  		<p th:unless="${#strings.length(domanda.testo)>99}" th:text="${domanda.testo} ">Testo della domanda </p>
-  	</div>
-  	</div>
-  	
-      </div>
+	<header th:replace="fragments/base.html :: intestazione"> </header>
 
-    </section>
-    <footer></footer>
-    
-    
-  
+
+
+
+	<section>
+		<!-- main paragraph -->
+		<p id="sottotitolo" th:text="#{header.home}">Best questions of the
+			week</p>
+		<!-- Two column-type things -->
+		<div id="container">
+
+			<div th:each="domanda:${domande}">
+				<section>
+
+					<!-- Two column-type things -->
+					<div id="container" class="domandaBox">
+
+						<section>
+
+							<!-- Two column-type things -->
+							<div id="container" class="box">
+								<a id="titoloDomanda" href="domanda.html"
+									th:href="@{'/domanda' + '/' + ${domanda.id}}"
+									th:text="${domanda.titolo}">Domanda</a>
+
+								<p th:if="${#strings.length(domanda.testo)>99}"
+									th:text="${#strings.substring(domanda.testo,0,99)} ">Testo
+									della domanda</p>
+								<p th:unless="${#strings.length(domanda.testo)>99}"
+									th:text="${domanda.testo} ">Testo della domanda</p>
+								<p th:text="${domanda.data}">Data della domanda</p>
+							</div>
+					</div>
+				</section>
+	</section>
+	</div>
+
+	</div>
+
+	</section>
+	<footer></footer>
+
+
+
 </body>
 </html>
-    
