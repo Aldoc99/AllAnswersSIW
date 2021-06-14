@@ -102,7 +102,18 @@ public class DomandaController {
 		return "domandaForm";
 	}
     
-    
+    @GetMapping("/cancellaDomanda/{id}")
+    public String cancellaDomanda(@PathVariable("id") Long id,Model model) {
+    	
+    	domandaService.cancellaDomanda(domandaService.getById(id));
+    	
+    	Utente utente=sessionData.getUtente();
+    	utente=utenteService.getByEmail(utente.getEmail());
+		List<Domanda> domande=utente.getDomande();
+    	model.addAttribute("domande", domande);
+    	
+    	return "domande";
+    }
     
 	
 	

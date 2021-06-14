@@ -29,7 +29,7 @@ public class Domanda {
 	
 	private LocalDate data;
 	
-	@OneToMany(mappedBy="domanda",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="domanda",cascade = CascadeType.MERGE)
 	private List<Risposta> risposte;
 	
 

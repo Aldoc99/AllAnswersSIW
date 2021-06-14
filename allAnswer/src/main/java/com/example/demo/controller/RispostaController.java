@@ -71,14 +71,17 @@ public class RispostaController {
 		Domanda domanda=domandaService.getById(id);
 		this.rispostaValidator.validate(risposta, bindingResult);
         if (!bindingResult.hasErrors()) {
-        	
+        	Utente utente=utenteService.getByEmail(sessionData.getUtente().getEmail());
         	domanda.getRisposte().add(risposta);
         	risposta.setDomanda(domanda);
-        	
-        	domandaService.inserisci(domanda);
+        	utente.getRisposte().add(risposta);
+  
+        	utenteService.inserisci(utente);
+        	model.addAttribute("utente",utente);
         	model.addAttribute("domanda", domanda);
         	return "domanda";
         }
+       
         model.addAttribute("domanda",domanda);
         
         return "rispostaForm";
@@ -170,5 +173,16 @@ public class RispostaController {
 		return "domanda";
 	}
 	
+	@GetMapping("/cancellaRisposta/{id}")
+	public String cancellaRisposta(@PathVariable("id") Long id,Model model) {
+		rispostaService.cancella(rispostaService.getById(id));
+		
+		Utente utente=sessionData.getUtente();
+    	utente=utenteService.getByEmail(utente.getEmail());
+		List<Risposta> risposte=utente.getRisposte();
+    	model.addAttribute("risposte", risposte);
+    	
+    	return "risposte";
+	}
 	
 }
