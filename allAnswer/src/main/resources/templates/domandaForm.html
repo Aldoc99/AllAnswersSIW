@@ -43,7 +43,7 @@
             <div>
               <span th:text="#{testo}">Text:</span>
               <br>
-              <span><textarea type="text" th:field="*{testo}" rows="10" cols="80"></textarea></span>
+              <span><textarea  th:field="*{testo}" rows="10" cols="80"></textarea></span>
               <span id="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
             </div>
             <div>

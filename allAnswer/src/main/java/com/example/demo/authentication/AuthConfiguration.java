@@ -24,7 +24,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter{
 
 		http
 		.antMatcher("/**").authorizeRequests()    //Definizione del path dove è necessaria autenticazione
-		.antMatchers(new String[]{"/","/not-restricted"}).permitAll()   //Path che non hanno bisogno di autenticazione
+		.antMatchers(new String[]{"/","/css/**","/images/**"}).permitAll()   //Path che non hanno bisogno di autenticazione
 		.anyRequest().authenticated()    //Redirect l'utente all'oauth login
 		.and()
 		.oauth2Login()

@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Risposta;
 import com.example.demo.model.Utente;
+import com.example.demo.model.Voto;
 import com.example.demo.service.DomandaService;
+import com.example.demo.service.RispostaService;
 import com.example.demo.service.UtenteService;
+import com.example.demo.service.VotoService;
 import com.example.demo.session.SessionData;
 
 @Controller
@@ -31,10 +34,16 @@ public class RispostaController {
 
 	@Autowired
 	private DomandaService domandaService;
+	
+	@Autowired
+	private RispostaService rispostaService;
 
 
 	@Autowired
 	private RispostaValidator rispostaValidator;
+
+	@Autowired
+	private VotoService votoService;
 	
 	@GetMapping("/risposte")
 	public String getRisposte(Model model) {
@@ -74,4 +83,92 @@ public class RispostaController {
         
         return "rispostaForm";
 	}
+	
+	@PostMapping("/{idRisposta}/addVotoPositivo")
+	public String addVotoPositivo(Model model,@PathVariable("idRisposta") Long id) {
+		Risposta risposta=rispostaService.getById(id);
+		Voto v=new Voto(true);
+		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		
+		risposta.aggiungiVoto(v);
+		v.setRisposta(risposta);
+		risposta.getUtentiVotanti().add(sessionData.getUtente());
+		utente.getVoti().add(v);
+		utenteService.inserisci(utente);
+
+		model.addAttribute("domanda", risposta.getDomanda());
+		model.addAttribute("utente", utente);
+		 
+		return "domanda";
+	}
+	
+	
+	@PostMapping("/{idRisposta}/addVotoNegativo")
+	public String addVotoNegativo(Model model,@PathVariable("idRisposta") Long id) {
+		Risposta risposta=rispostaService.getById(id);
+		Voto v=new Voto(false);
+		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		
+		risposta.aggiungiVoto(v);
+		v.setRisposta(risposta);
+		risposta.getUtentiVotanti().add(utente);
+		utente.getVoti().add(v);
+		rispostaService.inserisci(risposta);
+		utenteService.inserisci(utente);
+		
+		model.addAttribute("domanda", risposta.getDomanda());
+		model.addAttribute("utente", utente);
+		
+		return "domanda";
+	}
+	
+	
+	
+	@PostMapping("/{idRisposta}/togliVoto")
+	public String togliVoto(Model model,@PathVariable("idRisposta") Long id) {
+		Risposta risposta=rispostaService.getById(id);
+		
+		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		List<Voto> voti=utente.getVoti();
+		for(int i=0;i<voti.size();i++) {
+			Voto v=voti.get(i);
+			if(v.getRisposta().getId()==id) {
+				risposta.togliVoto(v);
+				risposta.getUtentiVotanti().remove(utente);
+				voti.remove(v);
+				votoService.rimuovi(v);
+			}
+		}
+			
+				
+		utenteService.inserisci(utente);
+		
+		model.addAttribute("domanda", risposta.getDomanda());
+		model.addAttribute("utente", utente);
+		
+		return "domanda";
+	}
+	
+	@PostMapping("/{idRisposta}/cambiaVoto")
+	public String cambiaVoto(Model model,@PathVariable("idRisposta") Long id) {
+		Risposta risposta=rispostaService.getById(id);
+		
+		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		List<Voto> voti=utente.getVoti();
+		for(Voto v:voti)
+			if(v.getRisposta().getId()==id) {
+				risposta.cambiaVoto(v);
+				v.setUtile(!v.isUtile());
+				
+			}
+				
+		utenteService.inserisci(utente);
+		
+		model.addAttribute("domanda", risposta.getDomanda());
+		model.addAttribute("utente", utente);
+		
+		return "domanda";
+	}
+	
+	
 }

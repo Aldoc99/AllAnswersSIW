@@ -1,0 +1,14 @@
+#homeLogin{
+	text-align:center;
+}
+
+body{
+	 background: no-repeat left/cover url(/images/sfondo.jpg);
+	 height:600px;
+}
+
+#box{
+	background-color:rgba(255,255,255, 0.9);
+	padding:21px;
+	font-size:1.5em;
+}

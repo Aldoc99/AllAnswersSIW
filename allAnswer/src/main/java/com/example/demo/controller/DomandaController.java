@@ -52,7 +52,9 @@ public class DomandaController {
     @RequestMapping(value = "/domanda/{id}", method = RequestMethod.GET)
     public String apriDomanda(@PathVariable("id") Long id,Model model) {
             model.addAttribute("domanda",this.domandaService.getById(id));
-            
+            Utente utente=utenteService.getById((sessionData.getUtente().getId()));
+            model.addAttribute("utente", utente);
+//            model.addAttribute("voti", utente.getVoti());
     		return "domanda.html";
     }
     
@@ -89,7 +91,7 @@ public class DomandaController {
         	
         	topic.getDomande().add(domanda);
         	topicService.inserisci(topic);
-       
+        	model.addAttribute("utente", utente);
         	return "domanda";
         }
         
