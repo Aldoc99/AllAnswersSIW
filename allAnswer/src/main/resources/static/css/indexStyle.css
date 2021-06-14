@@ -136,3 +136,8 @@ footer {
  #titoloRisposta:hover{
  text-decoration:underline;
  }
+
+
+button.btn.waves-effect.waves-light.button{
+ background-color:firebrick;
+ }

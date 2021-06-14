@@ -22,7 +22,8 @@
               <span><textarea id="testoForm" th:field="*{testo}" rows="10" cols="80"></textarea></span>
               <span id="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
               <br th:if="${#fields.hasErrors('testo')}">
-      <span><button type="submit">Invio</button></span>
+      <span><button class="btn waves-effect waves-light button" type="submit" name="action">Submit
+  			</button></span>
     	</form>
     	</div>
     </section>
