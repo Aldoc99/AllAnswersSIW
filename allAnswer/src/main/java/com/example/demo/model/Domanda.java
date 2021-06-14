@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -32,7 +33,8 @@ public class Domanda {
 	@OneToMany(mappedBy="domanda",cascade = CascadeType.MERGE)
 	private List<Risposta> risposte;
 	
-
+	@ManyToMany(mappedBy="domande")
+	private List<Hashtag> hashtags;
 	
 	public Domanda() {
 		this.risposte=new ArrayList<>();
