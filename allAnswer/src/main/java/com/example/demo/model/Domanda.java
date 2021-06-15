@@ -30,7 +30,7 @@ public class Domanda {
 	
 	private LocalDate data;
 	
-	@OneToMany(mappedBy="domanda",cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="domanda",cascade = {CascadeType.MERGE,CascadeType.REMOVE})
 	private List<Risposta> risposte;
 	
 	@ManyToMany(mappedBy="domande")

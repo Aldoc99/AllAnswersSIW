@@ -1,5 +1,11 @@
 #homeLogin{
 	text-align:center;
+	background-color:rgba(255,255,255, 0.9);
+}
+h1{
+	width:100%;
+	font-size:6em;
+	
 }
 
 body{
@@ -8,7 +14,6 @@ body{
 }
 
 #box{
-	background-color:rgba(255,255,255, 0.9);
 	padding:21px;
 	font-size:1.5em;
 }

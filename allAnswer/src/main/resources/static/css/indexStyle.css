@@ -141,3 +141,19 @@ footer {
 button.btn.waves-effect.waves-light.button{
  background-color:firebrick;
  }
+ button.btn.waves-effect.waves-light.button.z-depth-0{
+     background-color: transparent;
+ }
+ 	
+ textarea,input{
+ color:white;
+ }
+ button.utile{
+color:transparent;
+}
+
+#AllAnswers{
+	width:100%;
+	font-size:6em;
+	background-color:rgba(255,255,255, 0.9);
+}
