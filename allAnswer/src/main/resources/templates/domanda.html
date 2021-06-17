@@ -38,7 +38,7 @@
 						<!-- Voti -->
 						
 						<!--L'utente può votare solo se non ha già votato-->
-						<div th:if="${risposta.utentiVotanti.?[email == '__${utente.email}__'].isEmpty()}">
+						<div th:if="${risposta.utentiVotanti.?[email == '__${utente.getEmail()}__'].isEmpty()}">
 						<form th:action="@{'/'+${risposta.id}+'/addVotoPositivo'}" method="POST">
 						<div class="utile">
 							<p id="like" th:text="${risposta.votiPositivi}">Numero likes
@@ -72,7 +72,7 @@
 						</div>
 						
 						<!-- Utente ha votato -->
-						<div th:unless="${risposta.utentiVotanti.?[email == '__${utente.email}__'].isEmpty()}">
+						<div th:unless="${risposta.utentiVotanti.?[email == '__${utente.getEmail()}__'].isEmpty()}">
 						<div th:each="voto:${utente.voti}">
 							<div th:if="${voto.risposta.id}==${risposta.id}">
 

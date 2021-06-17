@@ -24,8 +24,8 @@ public class Topic {
 	private String titolo;
 	
 	private String descrizione;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+//	{CascadeType.REMOVE,CascadeType.MERGE}
+	@OneToMany(cascade=CascadeType.ALL )
 	@JoinColumn(name= "topic_id")
 	private List<Domanda> domande;
 	

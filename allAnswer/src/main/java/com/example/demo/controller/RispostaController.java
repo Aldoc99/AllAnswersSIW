@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.model.Credentials;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Risposta;
 import com.example.demo.model.Utente;
 import com.example.demo.model.Voto;
+import com.example.demo.service.CredentialsService;
 import com.example.demo.service.DomandaService;
 import com.example.demo.service.RispostaService;
 import com.example.demo.service.UtenteService;
@@ -44,11 +46,16 @@ public class RispostaController {
 
 	@Autowired
 	private VotoService votoService;
+
+	@Autowired
+	private CredentialsService credentialsService;
 	
 	@GetMapping("/risposte")
 	public String getRisposte(Model model) {
-		Utente utente=sessionData.getUtente();
-		utente=utenteService.getByEmail(utente.getEmail());
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
+		
 		List<Risposta> risposte=utente.getRisposte();
 
 		
@@ -71,7 +78,9 @@ public class RispostaController {
 		Domanda domanda=domandaService.getById(id);
 		this.rispostaValidator.validate(risposta, bindingResult);
         if (!bindingResult.hasErrors()) {
-        	Utente utente=utenteService.getByEmail(sessionData.getUtente().getEmail());
+        	Credentials credentials=sessionData.getCredentials();
+    		credentials=credentialsService.getByEmail(credentials.getEmail());
+    		Utente utente=credentials.getUtente();
         	domanda.getRisposte().add(risposta);
         	risposta.setDomanda(domanda);
         	utente.getRisposte().add(risposta);
@@ -91,11 +100,12 @@ public class RispostaController {
 	public String addVotoPositivo(Model model,@PathVariable("idRisposta") Long id) {
 		Risposta risposta=rispostaService.getById(id);
 		Voto v=new Voto(true);
-		Utente utente=utenteService.getById(sessionData.getUtente().getId());
-		
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
-		risposta.getUtentiVotanti().add(sessionData.getUtente());
+		risposta.getUtentiVotanti().add(utente);
 		utente.getVoti().add(v);
 		utenteService.inserisci(utente);
 
@@ -110,8 +120,9 @@ public class RispostaController {
 	public String addVotoNegativo(Model model,@PathVariable("idRisposta") Long id) {
 		Risposta risposta=rispostaService.getById(id);
 		Voto v=new Voto(false);
-		Utente utente=utenteService.getById(sessionData.getUtente().getId());
-		
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
 		risposta.getUtentiVotanti().add(utente);
@@ -131,7 +142,9 @@ public class RispostaController {
 	public String togliVoto(Model model,@PathVariable("idRisposta") Long id) {
 		Risposta risposta=rispostaService.getById(id);
 		
-		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		List<Voto> voti=utente.getVoti();
 		for(int i=0;i<voti.size();i++) {
 			Voto v=voti.get(i);
@@ -156,7 +169,9 @@ public class RispostaController {
 	public String cambiaVoto(Model model,@PathVariable("idRisposta") Long id) {
 		Risposta risposta=rispostaService.getById(id);
 		
-		Utente utente=utenteService.getById(sessionData.getUtente().getId());
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		List<Voto> voti=utente.getVoti();
 		for(Voto v:voti)
 			if(v.getRisposta().getId()==id) {
@@ -175,11 +190,17 @@ public class RispostaController {
 	
 	@GetMapping("/cancellaRisposta/{id}")
 	public String cancellaRisposta(@PathVariable("id") Long id,Model model) {
-		rispostaService.cancella(rispostaService.getById(id));
-		
-		Utente utente=sessionData.getUtente();
-    	utente=utenteService.getByEmail(utente.getEmail());
+		Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		List<Risposta> risposte=utente.getRisposte();
+		Risposta risposta=rispostaService.getById(id);
+		
+		if(risposte.contains(risposta))
+			rispostaService.cancella(risposta);
+		
+		
+		
     	model.addAttribute("risposte", risposte);
     	
     	return "risposte";

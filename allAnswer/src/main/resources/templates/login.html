@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <head th:replace="fragments/base.html :: headerfiles"></head>
@@ -11,6 +11,7 @@
 
 <div id="box">
 <h3>Benvenuto</h3>
+	<h4><a href="/loginForm">Login with email and password</a></h4>
     <h4><a id="loginLink" th:href="@{/oauth2/authorization/google}">Login with Google</a></h4>   
 </div>
 

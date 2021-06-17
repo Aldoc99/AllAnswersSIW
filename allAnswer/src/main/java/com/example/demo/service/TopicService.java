@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Domanda;
 import com.example.demo.model.Topic;
 import com.example.demo.repository.TopicRepository;
 
@@ -32,5 +31,15 @@ public class TopicService {
 		return (List<Topic>) topicRepository.findAll();
 	}
 
+	@Transactional
+	public boolean alreadyExists(Topic topic) {
+		Topic t=topicRepository.findByTitolo(topic.getTitolo());
+		return t!=null;
+	}
+	
+	@Transactional
+	public void cancella(Topic topic) {
+		topicRepository.delete(topic);
+	}
 	
 }

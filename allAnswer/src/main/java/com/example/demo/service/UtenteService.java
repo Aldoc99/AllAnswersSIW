@@ -30,9 +30,4 @@ public class UtenteService {
 	public List<Utente> tutti(){
 		return (List<Utente>) utenteRepository.findAll();
 	}
-	
-	@Transactional
-	public Utente getByEmail(String email) {
-		return utenteRepository.findByEmail(email);
-	}
 }

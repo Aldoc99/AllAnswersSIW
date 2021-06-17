@@ -4,20 +4,21 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.model.Credentials;
 import com.example.demo.model.Utente;
 
 @Component
 @Scope(value="session",proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SessionData {
 
-	private Utente utente;
+	private Credentials credentials;
 
-	public Utente getUtente() {
-		return utente;
+	public Credentials getCredentials() {
+		return credentials;
 	}
 
-	public void setUtente(Utente utente) {
-		this.utente = utente;
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
 	}
 	
 }

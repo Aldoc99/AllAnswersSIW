@@ -17,3 +17,8 @@ body{
 	padding:21px;
 	font-size:1.5em;
 }
+
+#loginForm input{
+	color:black;
+	
+}
