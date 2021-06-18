@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: headerfiles"> </head>
+<head>
+<link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+</head>
+
+<body>
+<div id="homeLogin">
+<h1>All Answers</h1>
+
+<div id="box">
+
+<form th:action="@{'/registerUsername'}" method="POST" th:object="${credentials}" id="loginForm">
+	<input placeholder="username" th:field="*{username}" />
+	<div id="errore" th:if="${#fields.hasErrors('username')}"
+                th:errors="${credentials.username}" th:style="'color:red'"></div>
+	<button class="btn waves-effect waves-light button" type="submit">Submit</button>
+</form>
+
+</div>
+
+</div>
+</body>
+</html>

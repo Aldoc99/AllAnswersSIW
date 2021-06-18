@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.controller.validator.TopicValidator;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Risposta;
 import com.example.demo.model.Topic;

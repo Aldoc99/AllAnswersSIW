@@ -39,6 +39,9 @@ public class Risposta {
 	@ManyToOne
 	private Domanda domanda;
 	
+	@ManyToOne
+	private Utente utente;
+	
 	@ManyToMany
 	private List<Utente> utentiVotanti;
 	

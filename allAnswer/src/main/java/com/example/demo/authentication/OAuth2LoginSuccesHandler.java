@@ -20,6 +20,7 @@ public class OAuth2LoginSuccesHandler extends SimpleUrlAuthenticationSuccessHand
 		CustomOAuth2User oAuth2User=(CustomOAuth2User) authentication.getPrincipal();
 		this.setDefaultTargetUrl("/loginOAuthSuccess");
 		System.out.println(oAuth2User.getEmail());
+		System.out.println(oAuth2User.getName());
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 

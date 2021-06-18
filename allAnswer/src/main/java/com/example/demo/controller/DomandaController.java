@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.demo.controller.validator.DomandaValidator;
 import com.example.demo.model.Credentials;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Topic;
@@ -76,7 +77,6 @@ public class DomandaController {
 
 	@GetMapping("/{idT}/addQuestion")
 	public String addQuestion(@PathVariable("idT") Long id,Model model) {
-//    	logger.debug("addPersona");
 		Topic topicCorrente=this.topicService.getById(id);
 		model.addAttribute("topic", topicCorrente);
     	model.addAttribute("domanda", new Domanda());
@@ -97,6 +97,7 @@ public class DomandaController {
     		
     		Utente utente=credentials.getUtente();
         	utente.getDomande().add(domanda);
+        	domanda.setUtente(utente);
         	this.utenteService.inserisci(utente);
         	
         	domanda=domandaService.getById(domanda.getId());
@@ -122,8 +123,12 @@ public class DomandaController {
 		
     	Domanda domanda=domandaService.getById(id);
     	List<Domanda> domande=utente.getDomande();
-    	if(domande.contains(domanda))
+    	if(domande.contains(domanda)) {
+    		domande.remove(domanda);
     		domandaService.cancellaDomanda(domanda);
+    		utenteService.inserisci(utente);
+    	}
+    		
     	
     	model.addAttribute("domande", domande);
     	

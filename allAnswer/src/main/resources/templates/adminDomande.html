@@ -37,6 +37,7 @@
 								della domanda</p>
 							<p th:unless="${#strings.length(domanda.testo)>99}"
 								th:text="${domanda.testo} ">Testo della domanda</p>
+								<p th:text="'By '+${domanda.utente.credentials.username}">Utente</p>
 								<p th:text="${domanda.data}"> Data della domanda</p>
 						</div>
 					</div>
