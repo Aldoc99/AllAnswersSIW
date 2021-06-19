@@ -69,14 +69,14 @@ public class DomandaController {
     
     
     @GetMapping("/addQuestion")
-	public String chooseTopic(Model model) {
+	public String chooseTopic(Model model) { //Aggiungere domanda
 		model.addAttribute("topics", topicService.tutti());
 		return "domandaFormTopic";
 	}
 	
 
 	@GetMapping("/{idT}/addQuestion")
-	public String addQuestion(@PathVariable("idT") Long id,Model model) {
+	public String addQuestion(@PathVariable("idT") Long id,Model model) { //Aggiungere domanda al topic
 		Topic topicCorrente=this.topicService.getById(id);
 		model.addAttribute("topic", topicCorrente);
     	model.addAttribute("domanda", new Domanda());

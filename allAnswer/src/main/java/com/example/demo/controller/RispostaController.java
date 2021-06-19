@@ -104,8 +104,9 @@ public class RispostaController {
 		Credentials credentials=sessionData.getCredentials();
 		credentials=credentialsService.getByEmail(credentials.getEmail());
 		Utente utente=credentials.getUtente();
-		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
+		v=votoService.inserisci(v);
+		risposta.aggiungiVoto(v);
 		risposta.getUtentiVotanti().add(utente);
 		utente.getVoti().add(v);
 		utenteService.inserisci(utente);
@@ -124,8 +125,9 @@ public class RispostaController {
 		Credentials credentials=sessionData.getCredentials();
 		credentials=credentialsService.getByEmail(credentials.getEmail());
 		Utente utente=credentials.getUtente();
-		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
+		v=votoService.inserisci(v);
+		risposta.aggiungiVoto(v);
 		risposta.getUtentiVotanti().add(utente);
 		utente.getVoti().add(v);
 		rispostaService.inserisci(risposta);

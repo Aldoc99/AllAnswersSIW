@@ -22,7 +22,7 @@
 
         <form th:action="@{'/admin/newTopic'}" method="POST" th:object="${topic}">
           <div th:if="${#fields.hasGlobalErrors()}">
-              <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+              <p id="errore" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
           </div>    
           <div>
             <div>
