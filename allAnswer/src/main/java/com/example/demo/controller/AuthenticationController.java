@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.authentication.CustomOAuth2User;
+import com.example.demo.controller.validator.CredentialsValidator;
+import com.example.demo.controller.validator.OAuthValidator;
 import com.example.demo.model.Credentials;
 import com.example.demo.model.Utente;
 import com.example.demo.service.CredentialsService;
@@ -32,6 +34,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredentialsValidator credentialsValidator;
+
+	@Autowired
+	private OAuthValidator oAuthValidator;
 	
 	@GetMapping("/login")
 	public String getLoginPage(Model model) {
@@ -76,18 +81,38 @@ public class AuthenticationController {
 	    CustomOAuth2User user=(CustomOAuth2User)authentication.getPrincipal();
 	    Credentials credentials=credentialsService.getByEmail(user.getEmail());
 	    
-	    	if(credentials==null) {
+	    	if(credentials==null) {  //Primo login con google
 	    		credentials=new Credentials(user.getEmail());
 	    		Utente utente=new Utente();
 	    		credentials.setUtente(utente);
 	    		credentialsService.inserisci(credentials);
 	    	}
+	    	sessionData.setCredentials(credentials);
+	    	
+	    	if(credentials.getUsername()==null) {
+	    		model.addAttribute("credentials", credentials);
+	    		return "usernameForm";
+	    	}
 	    		
-	    		sessionData.setCredentials(credentials);
-	    		model.addAttribute("domande",domandaService.getRandomDomande());
+	    		
+	    		
+	    model.addAttribute("domande",domandaService.getRandomDomande());
 	    return "index";
 	}
 	
+	@PostMapping("/registerUsername")
+	public String registerUsername(@ModelAttribute("credentials") Credentials credentials,Model model,BindingResult bindingResult) {
+		Credentials credenzialiSessione=sessionData.getCredentials();
+		oAuthValidator.validate(credentials, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			credenzialiSessione.setUsername(credentials.getUsername());
+			credentialsService.inserisci(credenzialiSessione);
+			model.addAttribute("domande",domandaService.getRandomDomande());
+			return "index";
+		}
+		return "usernameForm";
+		
+	}
 	/*URL successo per loginForm*/
 	@GetMapping("/default")
     public String defaultAfterLogin(Model model) {
@@ -105,7 +130,11 @@ public class AuthenticationController {
 	@GetMapping("/init")
 	public String initAdmin(Model model) {
 		Credentials credentials=new Credentials("admin@admin.com", "admin", Credentials.ADMIN_ROLE);
-		credentialsService.inserisci(credentials);
+		try {
+			credentialsService.inserisci(credentials);
+		}
+		catch(Exception e) {
+		}
 		return "login";
 	}
 }

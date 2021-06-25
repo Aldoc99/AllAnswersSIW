@@ -50,7 +50,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter{
 		// login paragraph: qui definiamo come è gestita l'autenticazione
         // usiamo il protocollo formlogin 
         .formLogin()
-        // la pagina di login si trova a /login
+        // la pagina di login si trova a /loginForm
         // NOTA: Spring gestisce il post di login automaticamente
         .loginPage("/loginForm")
         .usernameParameter("email")

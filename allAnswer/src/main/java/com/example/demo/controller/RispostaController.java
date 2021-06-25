@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.controller.validator.RispostaValidator;
 import com.example.demo.model.Credentials;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Risposta;
@@ -84,7 +85,7 @@ public class RispostaController {
         	domanda.getRisposte().add(risposta);
         	risposta.setDomanda(domanda);
         	utente.getRisposte().add(risposta);
-  
+        	risposta.setUtente(utente);
         	utenteService.inserisci(utente);
         	model.addAttribute("utente",utente);
         	model.addAttribute("domanda", domanda);
@@ -103,8 +104,9 @@ public class RispostaController {
 		Credentials credentials=sessionData.getCredentials();
 		credentials=credentialsService.getByEmail(credentials.getEmail());
 		Utente utente=credentials.getUtente();
-		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
+		v=votoService.inserisci(v);
+		risposta.aggiungiVoto(v);
 		risposta.getUtentiVotanti().add(utente);
 		utente.getVoti().add(v);
 		utenteService.inserisci(utente);
@@ -123,8 +125,9 @@ public class RispostaController {
 		Credentials credentials=sessionData.getCredentials();
 		credentials=credentialsService.getByEmail(credentials.getEmail());
 		Utente utente=credentials.getUtente();
-		risposta.aggiungiVoto(v);
 		v.setRisposta(risposta);
+		v=votoService.inserisci(v);
+		risposta.aggiungiVoto(v);
 		risposta.getUtentiVotanti().add(utente);
 		utente.getVoti().add(v);
 		rispostaService.inserisci(risposta);
@@ -196,8 +199,13 @@ public class RispostaController {
 		List<Risposta> risposte=utente.getRisposte();
 		Risposta risposta=rispostaService.getById(id);
 		
-		if(risposte.contains(risposta))
+		if(risposte.contains(risposta)) {
+			risposte.remove(risposta);
 			rispostaService.cancella(risposta);
+			utente.setRisposte(risposte);
+			utenteService.inserisci(utente);
+		}
+			
 		
 		
 		

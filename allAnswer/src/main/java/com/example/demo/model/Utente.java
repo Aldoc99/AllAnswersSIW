@@ -29,12 +29,10 @@ public class Utente {
 	@JoinColumn(name= "utente_id")
 	private List<Voto> voti;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name= "utente_id")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "utente")
 	private List<Risposta> risposte;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name= "utente_id")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "utente")
 	private List<Domanda> domande;
 	
 	public Utente() {

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/base.html :: headerfiles"> </head>
+<head>
 <link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+</head>
+
 <body>
 <div id="homeLogin">
 <h1>All Answers</h1>
@@ -10,20 +13,27 @@
 
 
     	<h4 th:text="#{header.registra}">Registrazione</h4>
-	<form th:action="@{/register}" method="POST" id="loginForm">
+	<form th:action="@{'/register'}" method="POST" id="loginForm" th:object="${credentials}">
     <table>
+    <tr>
+    <td>Username</td>
+    	<td><input type="text" placeholder="username" required
+                       th:field="*{username}"/></td>
+            <td th:if="${#fields.hasErrors('username')}"
+                th:errors="${credentials.username}" th:style="'color:red'"></td>
+    </tr>
         <tr>
             <td>Email</td>
             <td><input type="text" placeholder="email" required
-                       th:field="${credentials.email}"/></td>
-            <td th:if="${#fields.hasErrors('credentials.email')}"
+                       th:field="*{email}"/></td>
+            <td th:if="${#fields.hasErrors('email')}"
                 th:errors="${credentials.email}" th:style="'color:red'"></td>
         </tr>
         <tr>
             <td>Password</td>
             <td><input type="password" placeholder="password" required
-                       th:field="${credentials.password}"/></td>
-            <td th:if="${#fields.hasErrors('credentials.password')}"
+                       th:field="*{password}"/></td>
+            <td th:if="${#fields.hasErrors('password')}"
                 th:errors="${credentials.password}" th:style="'color:red'"></td>
         </tr>
       <tr>

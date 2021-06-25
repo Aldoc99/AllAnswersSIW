@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.example.demo.model.Credentials;
-import com.example.demo.model.Utente;
 import com.example.demo.service.CredentialsService;
 
 @Component
@@ -17,7 +16,7 @@ public class CredentialsValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		 return Utente.class.equals(clazz);
+		 return Credentials.class.equals(clazz);
 	}
 
 	@Override
@@ -25,7 +24,13 @@ public class CredentialsValidator implements Validator{
 		Credentials credentials = (Credentials) target;
 		String email = credentials.getEmail().trim();
         String password = credentials.getPassword().trim();
+        String username=credentials.getUsername().trim();
 		
+        if(username.isEmpty())
+        	errors.rejectValue("username","required");
+        else if (this.credentialsService.getByUsername(username)!=null)
+        	errors.rejectValue("username", "duplicate");
+        	
         if (email.isEmpty())
             errors.rejectValue("email", "required");
         else if (this.credentialsService.getByEmail(email) != null)

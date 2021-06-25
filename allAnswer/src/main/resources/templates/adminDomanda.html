@@ -19,6 +19,7 @@
 				<div th:if="${domanda}" th:object="${domanda}">
 					<h3 th:text="*{titolo}" id="titolo">Nome</h3>
 					<p th:text="*{testo}">Testo</p>
+					<p th:text="'By '+*{utente.credentials.username}">Utente</p>
 					<p th:text="${domanda.data}">Data della domanda</p>
 				</div>
 				</div>
@@ -37,6 +38,7 @@
 								</svg>
 								</a>
 						<p th:text="${risposta.testo}">Testo risposta</p>
+						<p th:text="'By '+${risposta.utente.credentials.username}">Utente</p>
 						<p th:text="${risposta.data}">Data della risposta</p>
 						
 						<!-- Voti -->

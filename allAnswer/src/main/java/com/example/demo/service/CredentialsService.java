@@ -36,4 +36,9 @@ public class CredentialsService {
     public Credentials getByEmail(String email) {
     	return this.credentialsRepository.findByEmail(email).orElse(null);
     }
+    
+    @Transactional
+    public Credentials getByUsername(String username) {
+    	return this.credentialsRepository.findByUsername(username).orElse(null);
+    }
 }

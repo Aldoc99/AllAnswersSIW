@@ -14,3 +14,11 @@ a#cancella{
 	margin-top:40px;
 	
 }
+
+#errore{
+	color:red;
+}
+
+a#titoloRisposta{
+	font-size:25px;
+}
