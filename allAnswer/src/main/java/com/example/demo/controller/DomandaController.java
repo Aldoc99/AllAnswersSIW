@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.demo.model.Credentials;
 import com.example.demo.model.Domanda;
 import com.example.demo.model.Topic;
 import com.example.demo.model.Utente;
+import com.example.demo.service.CredentialsService;
 import com.example.demo.service.DomandaService;
 import com.example.demo.service.TopicService;
 import com.example.demo.service.UtenteService;
@@ -39,11 +41,15 @@ public class DomandaController {
 	
     @Autowired
     private DomandaValidator domandaValidator;
+
+    @Autowired
+	private CredentialsService credentialsService;
 	
     @RequestMapping(value = "/domanda", method = RequestMethod.GET)
     public String getDomande(Model model) {
-    	Utente utente=sessionData.getUtente();
-    	utente=utenteService.getByEmail(utente.getEmail());
+    	Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
 		List<Domanda> domande=utente.getDomande();
     	model.addAttribute("domande", domande);
     	return "domande.html";
@@ -52,7 +58,10 @@ public class DomandaController {
     @RequestMapping(value = "/domanda/{id}", method = RequestMethod.GET)
     public String apriDomanda(@PathVariable("id") Long id,Model model) {
             model.addAttribute("domanda",this.domandaService.getById(id));
-            
+            Credentials credentials=sessionData.getCredentials();
+    		credentials=credentialsService.getByEmail(credentials.getEmail());
+    		Utente utente=credentials.getUtente();
+            model.addAttribute("utente", utente);
     		return "domanda.html";
     }
     
@@ -82,14 +91,19 @@ public class DomandaController {
         if (!bindingResult.hasErrors()) {
         	domanda.setData(LocalDate.now());
         	
-        	Utente utente=utenteService.getById(sessionData.getUtente().getId());
+        	domanda=domandaService.inserisci(domanda);
+        	Credentials credentials=sessionData.getCredentials();
+    		credentials=credentialsService.getByEmail(credentials.getEmail());
+    		
+    		Utente utente=credentials.getUtente();
         	utente.getDomande().add(domanda);
-        	this.utenteService.inserisci(sessionData.getUtente());
+        	this.utenteService.inserisci(utente);
         	
-        	
+        	domanda=domandaService.getById(domanda.getId());
         	topic.getDomande().add(domanda);
         	topicService.inserisci(topic);
-       
+        	
+        	model.addAttribute("utente", utente);
         	return "domanda";
         }
         
@@ -100,7 +114,21 @@ public class DomandaController {
 		return "domandaForm";
 	}
     
-    
+    @GetMapping("/cancellaDomanda/{id}")
+    public String cancellaDomanda(@PathVariable("id") Long id,Model model) {
+    	Credentials credentials=sessionData.getCredentials();
+		credentials=credentialsService.getByEmail(credentials.getEmail());
+		Utente utente=credentials.getUtente();
+		
+    	Domanda domanda=domandaService.getById(id);
+    	List<Domanda> domande=utente.getDomande();
+    	if(domande.contains(domanda))
+    		domandaService.cancellaDomanda(domanda);
+    	
+    	model.addAttribute("domande", domande);
+    	
+    	return "domande";
+    }
     
 	
 	

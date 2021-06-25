@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <head th:replace="fragments/base.html :: headerfiles"></head>
+<title>AllAnswers Login</title>
+<link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+<body>
+<div id="homeLogin">
+<h1>All Answers</h1>
+
+<div id="box">
+<h3>Benvenuto</h3>
+<form th:action="@{/loginForm}" method="POST" id="loginForm">
+		<div>
+			<div>
+				<span>Email:</span>
+				<span><input name="email" type="text" required /></span>
+			</div>		
+			<div>
+				<span>Password:</span>
+				<span><input name="password" type="password" required /></span>
+			</div>
+			<div>
+				<span><button type="submit" class="btn waves-effect waves-light button">Login</button></span>
+				<span><a href="/register" class="btn waves-effect waves-light button">Register</a></span>
+			</div>
+		</div>
+	</form>   
+</div>
+
+</div>
+
+</body>
+</html>

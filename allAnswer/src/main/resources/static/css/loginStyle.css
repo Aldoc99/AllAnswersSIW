@@ -1,0 +1,24 @@
+#homeLogin{
+	text-align:center;
+	background-color:rgba(255,255,255, 0.9);
+}
+h1{
+	width:100%;
+	font-size:6em;
+	
+}
+
+body{
+	 background: no-repeat left/cover url(/images/sfondo.jpg);
+	 height:600px;
+}
+
+#box{
+	padding:21px;
+	font-size:1.5em;
+}
+
+#loginForm input{
+	color:black;
+	
+}

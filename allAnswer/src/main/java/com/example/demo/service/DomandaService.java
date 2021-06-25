@@ -36,5 +36,10 @@ public class DomandaService {
 		return domandaRepository.getRandomDomanda();
 	}
 	
+	@Transactional
+	public void cancellaDomanda(Domanda domanda) {
+		domandaRepository.delete(domanda);
+	}
+	
 	
 }

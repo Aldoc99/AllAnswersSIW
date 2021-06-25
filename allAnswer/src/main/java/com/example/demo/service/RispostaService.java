@@ -15,20 +15,25 @@ public class RispostaService {
 
 	@Autowired
 	private RispostaRepository rispostaRepository;
-	
+
 	@Transactional
 	public Risposta inserisci(Risposta risposta) {
 		return rispostaRepository.save(risposta);
 	}
-	
+
 	@Transactional
 	public Risposta getById(Long id) {
 		return rispostaRepository.findById(id).orElse(null);
 	}
-	
+
 	@Transactional
 	public List<Risposta> tutti(){
 		return (List<Risposta>) rispostaRepository.findAll();
 	}
-	
+
+	public void cancella(Risposta risposta) {
+		rispostaRepository.delete(risposta);
+
+	}
+
 }

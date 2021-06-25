@@ -31,4 +31,8 @@ public class VotoService {
 		return (List<Voto>) votoRepository.findAll();
 	}
 	
+	@Transactional
+	public void rimuovi(Voto v) {
+		votoRepository.delete(v);
+	}
 }

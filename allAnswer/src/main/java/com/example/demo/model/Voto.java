@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -17,6 +18,9 @@ public class Voto {
 	private Long id;
 	
 	private boolean utile;
+	
+	@ManyToOne
+	private Risposta risposta;
 	
 	public Voto(){
 		

@@ -6,4 +6,5 @@ import com.example.demo.model.Topic;
 
 public interface TopicRepository extends CrudRepository<Topic, Long>{
 
+	public Topic findByTitolo(String titolo);
 }

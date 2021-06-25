@@ -7,30 +7,20 @@
 </head>
 <body>
 
-<header th:replace="fragments/base.html :: intestazione"> </header>
+<header th:replace="fragments/base.html :: adminIntestazione"> </header>
   
   
   	
     
     <section>
       <!-- main paragraph --> 
-      <p id="sottotitolo" th:text="#{header.domandaForm}">Create new question</p>
+      <p id="sottotitolo">New topic</p>
       <!-- Two column-type things --> 
       <div id="container">
         
 
-        <div th:if="${topic}" th:object="${topic}">
-         <div id="descrizione">
-          <h4 th:text="#{topic}">Topic:</h4>
-          <span th:text="*{titolo}">nome</span>
-         
-      	<h4 th:text="#{descrizione}">Descrizione:</h4>
-      	<p th:text="${topic.descrizione}">descrizione</p>
-       </div>
-        </div>
-        <div th:unless="${topic}">Non esiste</div>
 
-        <form th:action="@{'/'+${topic.id}+'/addQuestion'}" method="POST" th:object="${domanda}">
+        <form th:action="@{'/admin/newTopic'}" method="POST" th:object="${topic}">
           <div th:if="${#fields.hasGlobalErrors()}">
               <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
           </div>    
@@ -48,11 +38,11 @@
             <div>
              <div class="row">
           		<div class="input-field col s12">
-            		<textarea id="textarea2"  th:field="*{testo}" class="materialize-textarea" data-length="120"></textarea>
-            			<label for="textarea2" th:text="#{testo}">Textarea</label>
+            		<textarea id="textarea2"  th:field="*{descrizione}" class="materialize-textarea" data-length="120"></textarea>
+            			<label for="textarea2" th:text="#{descrizione}">Textarea</label>
           		</div>
         	  </div>
-              <span id="errore" th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}"></span>
+              <span id="errore" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
             </div>
 
             

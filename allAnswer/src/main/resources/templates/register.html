@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/base.html :: headerfiles"> </head>
+<link rel="stylesheet" type="text/css" href="/css/loginStyle.css">
+<body>
+<div id="homeLogin">
+<h1>All Answers</h1>
+
+<div id="box">
+
+
+    	<h4 th:text="#{header.registra}">Registrazione</h4>
+	<form th:action="@{/register}" method="POST" id="loginForm">
+    <table>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" placeholder="email" required
+                       th:field="${credentials.email}"/></td>
+            <td th:if="${#fields.hasErrors('credentials.email')}"
+                th:errors="${credentials.email}" th:style="'color:red'"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" placeholder="password" required
+                       th:field="${credentials.password}"/></td>
+            <td th:if="${#fields.hasErrors('credentials.password')}"
+                th:errors="${credentials.password}" th:style="'color:red'"></td>
+        </tr>
+      <tr>
+       <td>
+                <button type="submit">Registra</button>
+            </td>
+      </tr>
+           
+    </table>
+	</form>
+
+</div>
+
+</div>
+</body>
+</html>
